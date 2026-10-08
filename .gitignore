@@ -1,0 +1,26 @@
+# Produkcyjne pliki konfiguracyjne z hasłami (ISO 27001)
+include/ost-config.php
+*.config.php
+!config/ost-config.sample.php
+
+# Zrzuty bazy danych i kopie zapasowe
+*.sql
+*.sql.gz
+*.tar.gz
+*.zip
+backups/
+
+# Logi i pliki sesyjne
+*.log
+logs/
+sessions/
+
+# Uploady użytkowników i załączniki biletów
+attachments/
+uploads/
+
+# Środowisko deweloperskie i systemowe
+.env
+.env.*
+.DS_Store
+Thumbs.db
