@@ -1,5 +1,22 @@
 # HD Service Desk (osTicket) – https://hd.twojastronawww.pl/
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Service%20Desk-osTicket-1f77b4?logo=php&logoColor=white" alt="osTicket">
+  <img src="https://img.shields.io/badge/Standard-ITIL%C2%AE%204%20Foundation-blueviolet?logo=checkmarx&logoColor=white" alt="ITIL 4">
+  <img src="https://img.shields.io/badge/Security-ISO%2FIEC%2027001%3A2023-success?logo=shield&logoColor=white" alt="ISO 27001">
+  <img src="https://img.shields.io/badge/Network%20%26%20WAF-Cloudflare%20Strict%20SSL-orange?logo=cloudflare&logoColor=white" alt="Cloudflare">
+  <img src="https://img.shields.io/badge/Backup-Automated%20MySQL%20Dump-blue?logo=gnu-bash&logoColor=white" alt="Backup">
+  <img src="https://img.shields.io/badge/Architektura-SPOC%20%7C%20L1%20%26%20L2-darkgreen" alt="SPOC L1 L2">
+</p>
+
+<p align="center">
+  <a href="https://hd.twojastronawww.pl/" target="_blank">
+    <img src="https://img.shields.io/badge/%F0%9F%8C%90_ODWIED%C5%B9_SERVICE_DESK_HD.TWOJASTRONAWWW.PL-005b82?style=for-the-badge" alt="Odwiedź HD Service Desk" />
+  </a>
+</p>
+
+---
+
 > **Produkcyjne wdrożenie i administracja własną instancją systemu Helpdesk / Service Desk opartą na silniku osTicket pod domeną [hd.twojastronawww.pl](https://hd.twojastronawww.pl/).**  
 > Projekt zrealizowany w oparciu o standardy zarządzania usługami IT **ITIL® 4 Foundation** oraz normy bezpieczeństwa informacji **ISO/IEC 27001:2023**.
 
