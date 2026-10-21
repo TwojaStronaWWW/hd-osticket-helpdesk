@@ -70,11 +70,40 @@ if ($expectedApiKey === '' || $apiKey === '' || !hash_equals($expectedApiKey, $a
     exit;
 }
 
+$centralEmail = get_hook_env('CENTRAL_LEAD_EMAIL', 'poczatek.krzysztof@gmail.com');
+$event = strtolower(trim((string)($data['event'] ?? '')));
+
+// Dedykowana ścieżka dla Porannego Raportu Systemowego (07:30: Scrapery KSH + Audyt ISO 27001)
+// Wysyła bezpośredni e-mail na $centralEmail bez zaśmiecania kolejki zgłoszeń w osTicket.
+if ($event === 'morning_report' || !empty($data['email_only'])) {
+    $mailSubject = trim((string)($data['subject'] ?? 'Poranny Raport Systemowy (Scrapery + Audyt)'));
+    $mailBody    = trim((string)($data['message'] ?? ''));
+    if ($mailBody === '') {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'error' => 'Empty message body']);
+        exit;
+    }
+
+    $fromAddress = 'kontakt@twojastronawww.pl';
+    $encodedSubj = '=?UTF-8?B?' . base64_encode($mailSubject) . '?=';
+    $headers     = "From: TwojaStronaWWW & KatoSalsaHub <{$fromAddress}>\r\n"
+                 . "MIME-Version: 1.0\r\n"
+                 . "Content-Type: text/plain; charset=UTF-8\r\n"
+                 . "Content-Transfer-Encoding: 8bit\r\n";
+
+    $emailSent = @mail($centralEmail, $encodedSubj, $mailBody, $headers, "-f{$fromAddress}");
+    http_response_code($emailSent ? 200 : 500);
+    echo json_encode([
+        'success'    => $emailSent,
+        'email_sent' => $emailSent,
+        'recipient'  => $centralEmail,
+    ]);
+    exit;
+}
+
 require_once __DIR__ . '/main.inc.php';
 require_once INCLUDE_DIR . 'class.ticket.php';
 
-$centralEmail = get_hook_env('CENTRAL_LEAD_EMAIL', 'poczatek.krzysztof@gmail.com');
-$event = strtolower(trim((string)($data['event'] ?? '')));
 $isChatbotEvent = in_array($event, ['contact_lead_captured', 'hot_lead_detected'], true);
 
 if ($isChatbotEvent) {
