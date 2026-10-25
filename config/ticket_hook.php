@@ -11,12 +11,25 @@ declare(strict_types=1);
  * 3. Gorące Leady z Czatbotów AI (event = hot_lead_detected — zaangażowana rozmowa)
  */
 
+header_remove('X-Powered-By');
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+header('Referrer-Policy: no-referrer');
+
+if (session_status() === PHP_SESSION_ACTIVE) {
+    @session_write_close();
+}
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     http_response_code(405);
     echo json_encode(['error' => 'Method Not Allowed']);
+    exit;
+}
+
+if (isset($_SERVER['HTTP_SEC_FETCH_SITE']) && strtolower(trim((string)$_SERVER['HTTP_SEC_FETCH_SITE'])) === 'cross-site') {
+    http_response_code(403);
+    echo json_encode(['error' => 'Cross-Site Request Blocked']);
     exit;
 }
 
